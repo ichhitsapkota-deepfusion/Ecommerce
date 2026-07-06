@@ -1,4 +1,4 @@
-// middlewares/product.dto.js
+
 
 exports.validateCreateProduct = (req, res, next) => {
   const { name, category, image } = req.body;
