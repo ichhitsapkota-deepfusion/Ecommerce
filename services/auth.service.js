@@ -21,20 +21,11 @@ exports.registerUser = async (email, password, role, isActive, phoneNumber) => {
   return savedUser;
 };
 
-
-
-
 exports.loginUser = async (email, password) => {
-
   const user = await User.findOne({ email });
-
 
   if (!user) {
     throw new Error("User not found!");
-  }
-
-  if (user.role !== "admin") {
-    throw new Error("Access denied. Only admins can log in.");
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
@@ -43,10 +34,9 @@ exports.loginUser = async (email, password) => {
     throw new Error("Invalid email or password");
   }
 
-  const secret = JWT_SECRET;
-  const token = jwt.sign({ userId: user._id, role: user.role }, secret, {
+  const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
     expiresIn: "1h",
   });
 
-  return token;
+  return {token, role: user.role};
 };

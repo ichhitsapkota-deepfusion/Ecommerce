@@ -7,6 +7,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const categoryRoutes = require("./routes/category.routes");
 const productRoutes = require("./routes/product.routes");
+const cartRoutes = require("./routes/cart.routes");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use("/auth", authRoutes);
 app.use("/categories", categoryRoutes);
 
 app.use("/products", productRoutes);
+
+app.use("/cart", cartRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

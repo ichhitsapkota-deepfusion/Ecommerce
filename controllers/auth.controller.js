@@ -21,12 +21,17 @@ exports.login = async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const token = await authService.loginUser(email, password);
+    const { token, role } = await authService.loginUser(email, password);
+
+    console.log(token, role)
     
     res.status(200).json({ 
       message: 'Login successful!', 
-      token: token 
+      token: token,
+      role: role
     });
+                  
+  
 
   } catch (error) {
     res.status(401).json({ error: error.message });
